@@ -1,18 +1,10 @@
-
-name: django-app
 services:
-  backend:
-    image: "railway/python:3.9"
-    env:
-      DJANGO_SETTINGS_MODULE: "voter_project.settings"
-    command: "python manage.py runserver 0.0.0.0:$PORT"
-    ports:
-      - 8000:8000
+  - name: voting-backend
     build:
-      steps:
-        - run: "pip install -r requirements.txt"
-        - run: "python manage.py collectstatic --noinput"
-services:
-  - name: django
-    startCommand: gunicorn voter_project.wsgi --log-file -
-    buildCommand: pip install -r requirements.txt
+      context: .
+    env:
+      DJANGO_SETTINGS_MODULE: your_project.settings
+      DEBUG: 'False'
+      ALLOWED_HOSTS: 'your-domain.com'
+    deploy:
+      startCommand: "gunicorn your_project.wsgi"
