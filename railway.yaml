@@ -12,3 +12,7 @@ services:
       steps:
         - run: "pip install -r requirements.txt"
         - run: "python manage.py collectstatic --noinput"
+services:
+  - name: django
+    startCommand: gunicorn voter_project.wsgi --log-file -
+    buildCommand: pip install -r requirements.txt
