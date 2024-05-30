@@ -1,0 +1,14 @@
+
+name: django-app
+services:
+  backend:
+    image: "railway/python:3.9"
+    env:
+      DJANGO_SETTINGS_MODULE: "voter_project.settings"
+    command: "python manage.py runserver 0.0.0.0:$PORT"
+    ports:
+      - 8000:8000
+    build:
+      steps:
+        - run: "pip install -r requirements.txt"
+        - run: "python manage.py collectstatic --noinput"
